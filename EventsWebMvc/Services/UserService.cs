@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using EventsWebMvc.Services.Exceptions;
 
 namespace EventsWebMvc.Services
 {
@@ -37,6 +38,23 @@ namespace EventsWebMvc.Services
             var obj = _context.User.Find(id);
             _context.User.Remove(obj);
             _context.SaveChanges();
+        }
+
+        public void Update(User obj)
+        {
+            if (!_context.User.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Id not found");
+            }
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }

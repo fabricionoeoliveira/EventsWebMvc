@@ -1,6 +1,7 @@
 ﻿using EventsWebMvc.Models;
 using EventsWebMvc.Models.ViewModels;
 using EventsWebMvc.Services;
+using EventsWebMvc.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -79,6 +80,48 @@ namespace EventsWebMvc.Controllers
             }
 
             return View(obj);
+
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _userService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Team> teams = _teamService.FindAll();
+            UserFormViewModel viewModel = new UserFormViewModel { User = obj, Teams = teams };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, User user)
+        {
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _userService.Update(user);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException )
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
 
         }
     }
