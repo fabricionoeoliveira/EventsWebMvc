@@ -25,5 +25,17 @@ namespace EventsWebMvc.Services
             _context.Add(obj);
             _context.SaveChanges();
         }
+
+        public User FindById(int id)
+        {
+            return _context.User.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+            var obj = _context.User.Find(id);
+            _context.User.Remove(obj);
+            _context.SaveChanges();
+        }
     }
 }
