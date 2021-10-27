@@ -14,6 +14,7 @@ namespace EventsWebMvc.Models
         public string RegionCode { get; set; }
         public string Phone { get; set; }
         public Team Team { get; set; }
+        public int TeamId { get; set; }
         public ICollection<EventsRecord> Events { get; set; } = new List<EventsRecord>();
 
         public User()

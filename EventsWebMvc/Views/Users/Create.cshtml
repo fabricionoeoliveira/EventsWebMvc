@@ -1,4 +1,4 @@
-﻿@model EventsWebMvc.Models.User
+﻿@model EventsWebMvc.Models.ViewModels.UserFormViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,24 +12,28 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="User.Name" class="control-label"></label>
+                <input asp-for="User.Name" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="NickName" class="control-label"></label>
-                <input asp-for="NickName" class="form-control" />
+                <label asp-for="User.NickName" class="control-label"></label>
+                <input asp-for="User.NickName" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Sector" class="control-label"></label>
-                <input asp-for="Sector" class="form-control" />
+                <label asp-for="User.Sector" class="control-label"></label>
+                <input asp-for="User.Sector" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="RegionCode" class="control-label"></label>
-                <input asp-for="RegionCode" class="form-control" />
+                <label asp-for="User.RegionCode" class="control-label"></label>
+                <input asp-for="User.RegionCode" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
+                <label asp-for="User.TeamId" class="control-label"></label>
+                <select asp-for="User.TeamId" asp-items="@(new SelectList(Model.Teams,"Id", "Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Phone" class="control-label"></label>
+                <input asp-for="User.Phone" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

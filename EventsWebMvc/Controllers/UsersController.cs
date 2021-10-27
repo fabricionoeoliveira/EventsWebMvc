@@ -1,4 +1,5 @@
 ﻿using EventsWebMvc.Models;
+using EventsWebMvc.Models.ViewModels;
 using EventsWebMvc.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,10 +13,12 @@ namespace EventsWebMvc.Controllers
     {
 
         private readonly UserService _userService;
+        private readonly TeamService _teamService;
 
-        public UsersController(UserService userService)
+        public UsersController(UserService userService, TeamService teamService)
         {
             _userService = userService;
+            _teamService = teamService;
         }
         public IActionResult Index()
         {
@@ -25,7 +28,9 @@ namespace EventsWebMvc.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var teams = _teamService.FindAll();
+            var viewModel = new UserFormViewModel { Teams = teams };
+            return View(viewModel);
         }
 
         [HttpPost]
