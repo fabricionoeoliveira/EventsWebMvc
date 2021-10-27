@@ -19,5 +19,11 @@ namespace EventsWebMvc.Services
         {
             return _context.User.ToList();
         }
+
+        public void Insert(User obj)
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
     }
 }

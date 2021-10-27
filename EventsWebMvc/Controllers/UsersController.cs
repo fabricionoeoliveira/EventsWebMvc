@@ -1,4 +1,5 @@
-﻿using EventsWebMvc.Services;
+﻿using EventsWebMvc.Models;
+using EventsWebMvc.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,19 @@ namespace EventsWebMvc.Controllers
             var list = _userService.FindAll();
             return View(list);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(User user)
+        {
+            _userService.Insert(user);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
