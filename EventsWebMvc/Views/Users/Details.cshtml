@@ -1,0 +1,52 @@
+﻿@model EventsWebMvc.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <dl class="d1-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NickName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NickName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sector)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sector)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegionCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegionCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Team)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Team.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+    <a asp-action="Index">Back to list</a>
+</div>

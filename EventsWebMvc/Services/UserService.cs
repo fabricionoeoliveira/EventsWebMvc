@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsWebMvc.Services
 {
@@ -28,7 +29,7 @@ namespace EventsWebMvc.Services
 
         public User FindById(int id)
         {
-            return _context.User.FirstOrDefault(obj => obj.Id == id);
+            return _context.User.Include(obj =>obj.Team).FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)
