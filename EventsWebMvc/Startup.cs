@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventsWebMvc.Models;
+using EventsWebMvc.Services;
 
 namespace EventsWebMvc
 {
@@ -39,6 +40,8 @@ namespace EventsWebMvc
             services.AddDbContext<EventsWebMvcContext>(options =>
                    options.UseMySql(Configuration.GetConnectionString("EventsWebMvcContext"), builder =>
 builder.MigrationsAssembly("EventsWebMvc")));
+
+            services.AddScoped<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
