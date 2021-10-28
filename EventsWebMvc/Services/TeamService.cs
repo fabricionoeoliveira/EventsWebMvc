@@ -1,4 +1,5 @@
 ﻿using EventsWebMvc.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace EventsWebMvc.Services
         {
             _context = context;
         }
-        public List<Team> FindAll()
+        public async Task<List<Team>> FindAllAsync()
         {
-            return _context.Team.OrderBy(x => x.Name).ToList();
+            return await _context.Team.OrderBy(x => x.Name).ToListAsync();
         }
     }
 }

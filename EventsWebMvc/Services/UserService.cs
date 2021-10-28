@@ -17,39 +17,40 @@ namespace EventsWebMvc.Services
             _context = context;
         }
 
-        public List<User> FindAll()
+        public async Task<List<User>> FindAllAsync()
         {
-            return _context.User.ToList();
+            return await _context.User.ToListAsync();
         }
 
-        public void Insert(User obj)
+        public async Task InsertAsync(User obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public User FindById(int id)
+        public async Task<User> FindByIdAsync(int id)
         {
-            return _context.User.Include(obj =>obj.Team).FirstOrDefault(obj => obj.Id == id);
+            return await _context.User.Include(obj =>obj.Team).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var obj = _context.User.Find(id);
+            var obj = await _context.User.FindAsync(id);
             _context.User.Remove(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(User obj)
+        public async Task UpdateAsync(User obj)
         {
-            if (!_context.User.Any(x => x.Id == obj.Id))
+            bool hasAny = await _context.User.AnyAsync(x => x.Id == obj.Id);
+            if (!hasAny)
             {
                 throw new NotFoundException("Id not found");
             }
             try
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {
