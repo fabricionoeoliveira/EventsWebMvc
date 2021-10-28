@@ -6,7 +6,7 @@ namespace EventsWebMvc.Models
     public class EventsRecord
     {
         public int Id { get; set; }
-        public  String Name { get; set; }
+        public  string Name { get; set; }
         public DateTime Date { get; set; }
         public int Amount { get; set; }
         public EventStatus Status { get; set; }
@@ -16,9 +16,10 @@ namespace EventsWebMvc.Models
         {
 
         }
-        public EventsRecord(int id, DateTime date, int amount, EventStatus status, User user)
+        public EventsRecord(int id, string name, DateTime date, int amount, EventStatus status, User user)
         {
             Id = id;
+            Name = name;
             Date = date;
             Amount = amount;
             Status = status;

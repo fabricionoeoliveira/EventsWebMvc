@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventsWebMvc.Models;
 using EventsWebMvc.Services;
+using EventsWebMvc.Data;
 
 namespace EventsWebMvc
 {
@@ -41,16 +42,18 @@ namespace EventsWebMvc
                    options.UseMySql(Configuration.GetConnectionString("EventsWebMvcContext"), builder =>
 builder.MigrationsAssembly("EventsWebMvc")));
 
+            services.AddScoped<SeedingService>();
             services.AddScoped<UserService>();
             services.AddScoped<TeamService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingService.Seed();
             }
             else
             {
